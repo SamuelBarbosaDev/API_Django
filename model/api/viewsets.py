@@ -3,7 +3,6 @@ from rest_framework.parsers import FileUploadParser
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import viewsets
 from rest_framework import status
 import pandas as pd
 import pickle
@@ -44,26 +43,6 @@ def prediction(request):
 @api_view(http_method_names=['post'])
 def multiple_predictions(request):
     df_input = pd.DataFrame(request.data['data'])
-    output = model.predict(df_input).tolist()
-
-    return Response({'predicts': output})
-
-
-@api_view(http_method_names=['post'])
-def mult_predict_wiht_csv(request):
-    uploaded_file = request.FILES['file']
-
-    # Leia o arquivo CSV em um DataFrame
-    try:
-        df_input = pd.read_csv(uploaded_file)
-
-    except Exception:
-        return Response(
-            {'error': 'Erro ao processar o arquivo CSV.'},
-            status=status.HTTP_400_BAD_REQUEST
-        )
-
-    # Faça as previsões com base no DataFrame
     output = model.predict(df_input).tolist()
 
     return Response({'predicts': output})
