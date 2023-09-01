@@ -16,13 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
-from model.api.viewsets import (
-    model_api
-)
-
-route = routers.DefaultRouter()
-route.register(r'model/', model_api, basename='model')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
